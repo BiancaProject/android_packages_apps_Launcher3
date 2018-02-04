@@ -32,6 +32,7 @@ import android.content.pm.LauncherApps;
 import android.content.pm.ShortcutInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
@@ -71,6 +72,7 @@ import com.android.launcher3.dragndrop.FolderAdaptiveIcon;
 import com.android.launcher3.graphics.TintedDrawableSpan;
 import com.android.launcher3.icons.ShortcutCachingLogic;
 import com.android.launcher3.icons.ThemedIconDrawable;
+import com.android.launcher3.LauncherPrefs;
 import com.android.launcher3.model.data.ItemInfo;
 import com.android.launcher3.model.data.ItemInfoWithIcon;
 import com.android.launcher3.pm.ShortcutConfigActivityInfo;
@@ -731,5 +733,10 @@ public final class Utilities {
                 label, matrix, matrixValues[Matrix.MSCALE_X], matrixValues[Matrix.MSCALE_Y],
                 matrixValues[Matrix.MTRANS_X], matrixValues[Matrix.MTRANS_Y]
         ));
+    }
+
+    public static boolean isWorkspaceEditAllowed(Context context) {
+        SharedPreferences prefs = LauncherPrefs.getPrefs(context.getApplicationContext());
+        return !prefs.getBoolean(InvariantDeviceProfile.KEY_WORKSPACE_LOCK, false);
     }
 }

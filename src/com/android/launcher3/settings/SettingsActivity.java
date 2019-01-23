@@ -51,6 +51,8 @@ import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.launcher3.config.FeatureFlags;
+import com.android.launcher3.lineage.LineageUtils;
+import com.android.launcher3.lineage.trust.TrustAppsActivity;
 import com.android.launcher3.customization.IconDatabase;
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.icons.pack.IconPackSettingsActivity;
@@ -96,6 +98,8 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
     static final String EXTRA_FRAGMENT = ":settings:fragment";
     @VisibleForTesting
     static final String EXTRA_FRAGMENT_ARGS = ":settings:fragment_args";
+
+    public static final String KEY_TRUST_APPS = "pref_trust_apps";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -337,6 +341,16 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                     return true;
                 case IconDatabase.KEY_ICON_PACK:
                     setupIconPackPreference(preference);
+                    return true;
+                case KEY_TRUST_APPS:
+                    preference.setOnPreferenceClickListener(p -> {
+                        LineageUtils.showLockScreen(getActivity(),
+                                getString(R.string.trust_apps_manager_name), () -> {
+                            Intent intent = new Intent(getActivity(), TrustAppsActivity.class);
+                            startActivity(intent);
+                        });
+                        return true;
+                    });
                     return true;
             }
 

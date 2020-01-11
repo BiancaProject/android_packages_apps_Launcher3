@@ -75,6 +75,7 @@ import androidx.core.graphics.ColorUtils;
 import com.android.launcher3.LauncherModel;
 import com.android.launcher3.dragndrop.FolderAdaptiveIcon;
 import com.android.launcher3.graphics.TintedDrawableSpan;
+import com.android.launcher3.icons.IconProvider;
 import com.android.launcher3.icons.ShortcutCachingLogic;
 import com.android.launcher3.icons.ThemedIconDrawable;
 import com.android.launcher3.LauncherPrefs;
@@ -130,6 +131,9 @@ public final class Utilities {
 
     @ChecksSdkIntAtLeast(api = VERSION_CODES.TIRAMISU, codename = "T")
     public static final boolean ATLEAST_T = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU;
+
+    public static final boolean ATLEAST_OREO =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
 
     private static final long WAIT_BEFORE_RESTART = 250;
 
@@ -577,8 +581,7 @@ public final class Utilities {
             LauncherActivityInfo activityInfo = context.getSystemService(LauncherApps.class)
                     .resolveActivity(info.getIntent(), info.user);
             outObj[0] = activityInfo;
-            return activityInfo == null ? null : LauncherAppState.getInstance(context)
-                    .getIconProvider().getIcon(
+            return activityInfo == null ? null : IconProvider.INSTANCE.get(context).getIcon(
                             activityInfo, activity.getDeviceProfile().inv.fillResIconDpi);
         } else if (info.itemType == LauncherSettings.Favorites.ITEM_TYPE_DEEP_SHORTCUT) {
             if (info instanceof PendingAddShortcutInfo) {

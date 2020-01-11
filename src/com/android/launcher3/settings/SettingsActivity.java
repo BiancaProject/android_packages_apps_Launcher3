@@ -25,8 +25,9 @@ import static com.android.launcher3.OverlayCallbackImpl.KEY_ENABLE_MINUS_ONE;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -47,18 +48,22 @@ import androidx.preference.PreferenceGroup.PreferencePositionCallback;
 import androidx.preference.PreferenceScreen;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.launcher3.config.FeatureFlags;
+import com.android.launcher3.customization.IconDatabase;
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.InvariantDeviceProfile;
 import com.android.launcher3.LauncherAppState;
 import com.android.launcher3.LauncherFiles;
 import com.android.launcher3.LauncherPrefs;
-import com.android.launcher3.R;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.config.FeatureFlags;
 import com.android.launcher3.model.WidgetsModel;
+import com.android.launcher3.R;
+import com.android.launcher3.settings.preference.IconPackPrefSetter;
+import com.android.launcher3.settings.preference.ReloadingListPreference;
 import com.android.launcher3.states.RotationHelper;
 import com.android.launcher3.uioverrides.plugins.PluginManagerWrapper;
+import com.android.launcher3.util.AppReloader;
 import com.android.launcher3.util.DisplayController;
+import com.android.launcher3.Utilities;
 
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 
@@ -200,11 +205,13 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
      */
     public static class LauncherSettingsFragment extends PreferenceFragmentCompat {
 
+        private static final String KEY_ICON_PACK = "pref_icon_pack";
         private String mHighLightKey;
         private boolean mPreferenceHighlighted = false;
         private Preference mDeveloperOptionPref;
 
         private Preference mShowGoogleAppPref;
+        private ReloadingListPreference mIconPackPref;
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -303,9 +310,31 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                     mShowGoogleAppPref = preference;
                     updateIsGoogleAppEnabled();
                     return true;
+                case KEY_ICON_PACK:
+                    mIconPackPref = (ReloadingListPreference) preference;
+                    mIconPackPref.setValue(IconDatabase.getGlobal(getActivity()));
+                    mIconPackPref.setOnReloadListener(IconPackPrefSetter::new);
+                    mIconPackPref.setIcon(getPackageIcon(IconDatabase.getGlobal(getActivity())));
+                    mIconPackPref.setOnPreferenceChangeListener((pref, val) -> {
+                        IconDatabase.clearAll(getActivity());
+                        IconDatabase.setGlobal(getActivity(), (String) val);
+                        mIconPackPref.setIcon(getPackageIcon((String) val));
+                        AppReloader.get(getActivity()).reload();
+                        return true;
+                    });
             }
 
             return true;
+        }
+
+        private Drawable getPackageIcon(String pkgName) {
+            Drawable icon = getContext().getResources().
+                              getDrawable(com.android.internal.R.drawable.sym_def_app_icon);
+            try {
+                 icon = getContext().getPackageManager().
+                              getApplicationIcon(pkgName);
+            } catch (PackageManager.NameNotFoundException e) {  }
+            return icon;
         }
 
         /**
@@ -382,5 +411,9 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                 }
             });
         }
+    }
+
+    public interface OnResumePreferenceCallback {
+        void onResume();
     }
 }

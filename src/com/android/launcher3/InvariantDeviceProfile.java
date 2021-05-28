@@ -99,6 +99,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
     public static final String KEY_SHOW_DRAWER_LABELS = "pref_drawer_show_labels";
     public static final String KEY_WORKSPACE_LOCK = "pref_workspace_lock";
     public static final String KEY_ALLAPPS_THEMED_ICONS = "pref_allapps_themed_icons";
+    public static final String KEY_MAX_LINES = "pref_max_lines";
 
     // Constants that affects the interpolation curve between statically defined device profile
     // buckets.
@@ -335,6 +336,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
             case KEY_SHOW_DRAWER_LABELS:
             case KEY_ALLAPPS_THEMED_ICONS:
             case IconDatabase.KEY_ICON_PACK:
+            case KEY_MAX_LINES:
                 onConfigChanged(mContext);
                 break;
         }

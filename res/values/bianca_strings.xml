@@ -83,4 +83,6 @@
     <string name="custom_seekbar_default_value_to_set">Default value: <xliff:g id="v">%s</xliff:g>\nLong press to set</string>
     <string name="custom_seekbar_default_value_is_set">Default value is set</string>
 
+    <!-- App label - max lines -->
+    <string name="icon_max_lines_title">Max lines for app label</string>
 </resources>

@@ -614,6 +614,7 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
     }
 
     protected void updateHeaderScroll(int scrolledOffset) {
+        getSearchView().setBackgroundResource(R.drawable.bg_all_apps_searchbox);
         float prog1 = Utilities.boundToRange((float) scrolledOffset / mHeaderThreshold, 0f, 1f);
         int headerColor = getHeaderColor(prog1);
         int tabsAlpha = mHeader.getPeripheralProtectionHeight() == 0 ? 0

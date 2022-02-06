@@ -18,6 +18,7 @@ package com.android.launcher3;
 
 import static com.android.launcher3.icons.BitmapInfo.FLAG_THEMED;
 import static com.android.launcher3.model.data.ItemInfoWithIcon.FLAG_ICON_BADGED;
+import static com.android.launcher3.util.Executors.MODEL_EXECUTOR;
 import static com.android.launcher3.util.SplitConfigurationOptions.STAGE_POSITION_BOTTOM_OR_RIGHT;
 import static com.android.launcher3.util.SplitConfigurationOptions.STAGE_POSITION_TOP_OR_LEFT;
 import static com.android.launcher3.util.SplitConfigurationOptions.STAGE_TYPE_MAIN;
@@ -157,6 +158,7 @@ public final class Utilities {
 
     public static final String GSA_PACKAGE = "com.google.android.googlequicksearchbox";
     public static final String LENS_SHARE_ACTIVITY = "com.google.android.apps.search.lens.LensShareEntryPointActivity";
+    public static final String LENS_ACTIVITY = "com.google.android.apps.gsa.staticplugins.lens.LensActivity";
 
     /**
      * Returns true if theme is dark.

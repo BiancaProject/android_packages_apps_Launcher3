@@ -48,8 +48,7 @@
     <string name="action_lens">Lens</string>
 
     <!-- Settings Categories -->
-    <string name="category_home">HOME</string>
-    <string name="category_icon">ICON</string>
-    <string name="category_misc">MISC</string>
+    <string name="category_icon">Icons</string>
+    <string name="category_misc">Misc</string>
 
 </resources>

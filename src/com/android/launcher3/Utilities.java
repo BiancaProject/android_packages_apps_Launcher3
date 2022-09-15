@@ -974,24 +974,6 @@ public final class Utilities {
         }
     }
 
-    public static void restart(final Context context) {
-        MODEL_EXECUTOR.execute(() -> {
-            try {
-                Thread.sleep(WAIT_BEFORE_RESTART);
-            } catch (Exception ignored) {
-            }
-            android.os.Process.killProcess(android.os.Process.myPid());
-        });
-    }
-
-    public static boolean isGSAEnabled(Context context) {
-        try {
-            return context.getPackageManager().getApplicationInfo(GSA_PACKAGE, 0).enabled;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
-
     public static boolean isWorkspaceEditAllowed(Context context) {
         SharedPreferences prefs = getPrefs(context.getApplicationContext());
         return !prefs.getBoolean(InvariantDeviceProfile.KEY_WORKSPACE_LOCK, false);

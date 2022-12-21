@@ -65,4 +65,7 @@
     <string name="pref_themed_icons_title">All apps themed icons</string>
     <string name="pref_themed_icons_summary">Toggle to switch between homescreen dock and all apps themed icons</string>
 
+    <!-- Kill App recents action shortcut -->
+    <string name="recent_task_option_kill_app">Kill</string>
+    <string name="recents_app_killed">App killed</string>
 </resources>

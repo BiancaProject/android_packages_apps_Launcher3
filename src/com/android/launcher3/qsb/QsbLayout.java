@@ -89,11 +89,19 @@ public class QsbLayout extends FrameLayout implements
 
     private void setIcons() {
         if (Themes.isThemedIconEnabled(mContext)) {
-            mAssistantIcon.setImageResource(R.drawable.ic_mic_themed);
+           if (Utilities.isMusicSearchEnabled(mContext)) {
+               mAssistantIcon.setImageResource(R.drawable.ic_music_themed);
+            } else {
+               mAssistantIcon.setImageResource(R.drawable.ic_mic_themed);
+            }
             mGoogleIcon.setImageResource(R.drawable.ic_super_g_themed);
             mLensIcon.setImageResource(R.drawable.ic_lens_themed);
         } else {
-            mAssistantIcon.setImageResource(R.drawable.ic_mic_color);
+           if (Utilities.isMusicSearchEnabled(mContext)) {
+               mAssistantIcon.setImageResource(R.drawable.ic_music_color);
+            } else {
+               mAssistantIcon.setImageResource(R.drawable.ic_mic_color);
+            }
             mGoogleIcon.setImageResource(R.drawable.ic_super_g_color);
             mLensIcon.setImageResource(R.drawable.ic_lens_color);
         }

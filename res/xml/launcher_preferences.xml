@@ -70,6 +70,12 @@
         android:summary="@string/dock_search_summary"
         android:defaultValue="true" />
 
+    <SwitchPreference
+        android:key="pref_dock_music_search"
+        android:title="@string/dock_music_search_title"
+        android:summary="@string/dock_music_search_summary"
+        android:defaultValue="false" />
+
     <androidx.preference.PreferenceCategory
         android:key="recents_category"
         android:title="@string/category_recents">

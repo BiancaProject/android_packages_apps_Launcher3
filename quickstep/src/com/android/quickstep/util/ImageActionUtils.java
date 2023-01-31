@@ -43,6 +43,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.UiThread;
 import androidx.annotation.WorkerThread;
 import androidx.core.content.FileProvider;
 

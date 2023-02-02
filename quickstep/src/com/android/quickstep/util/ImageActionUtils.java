@@ -152,7 +152,7 @@ public class ImageActionUtils {
         });
     }
 
-    @UiThread
+    @WorkerThread
     public static void startLensActivity(Context context, Supplier<Bitmap> bitmapSupplier,
             Rect crop, Intent intent, String tag) {
         if (bitmapSupplier.get() == null) {

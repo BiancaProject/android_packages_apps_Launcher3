@@ -414,10 +414,13 @@ public interface TaskShortcutFactory {
         }
     };
 
-    TaskShortcutFactory KILL_APP = (activity, taskContainer) -> {
-        String packageName = taskContainer.getTaskView()
-                .getItemInfo().getTargetComponent().getPackageName();
-        return new KillSystemShortcut(activity, taskContainer, packageName);
+    TaskShortcutFactory KILL_APP = new TaskShortcutFactory() {
+        @Override
+        public List<SystemShortcut> getShortcuts(BaseDraggingActivity activity,
+                TaskIdAttributeContainer taskContainer) {
+                    String packageName = taskContainer.getItemInfo().getTargetComponent().getPackageName();
+                    return Collections.singletonList(new KillSystemShortcut(activity, taskContainer, packageName));
+        }
     };
 
     class KillSystemShortcut extends SystemShortcut {

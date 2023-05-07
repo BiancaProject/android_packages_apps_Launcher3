@@ -77,7 +77,6 @@ import androidx.core.graphics.ColorUtils;
 import com.android.launcher3.LauncherModel;
 import com.android.launcher3.dragndrop.FolderAdaptiveIcon;
 import com.android.launcher3.graphics.TintedDrawableSpan;
-import com.android.launcher3.icons.IconProvider;
 import com.android.launcher3.icons.ShortcutCachingLogic;
 import com.android.launcher3.icons.ThemedIconDrawable;
 import com.android.launcher3.LauncherPrefs;
@@ -616,7 +615,8 @@ public final class Utilities {
             LauncherActivityInfo activityInfo = context.getSystemService(LauncherApps.class)
                     .resolveActivity(info.getIntent(), info.user);
             outObj[0] = activityInfo;
-            return activityInfo == null ? null : IconProvider.INSTANCE.get(context).getIcon(
+            return activityInfo == null ? null : LauncherAppState.getInstance(context)
+                    .getIconProvider().getIcon(
                             activityInfo, activity.getDeviceProfile().inv.fillResIconDpi);
         } else if (info.itemType == LauncherSettings.Favorites.ITEM_TYPE_DEEP_SHORTCUT) {
             List<ShortcutInfo> si = ShortcutKey.fromItemInfo(info)

@@ -529,13 +529,6 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
         mAllAppsStore.registerIconContainer(mAH.get(AdapterHolder.SEARCH).mRecyclerView);
     }
 
-    protected void setScrollbarVisibility(boolean visible) {
-        final RecyclerViewFastScroller scrollbar = getScrollBar();
-        if (scrollbar != null) {
-            scrollbar.setVisibility(visible ? VISIBLE : GONE);
-        }
-    }
-
     protected View replaceAppsRVContainer(boolean showTabs) {
         for (int i = AdapterHolder.MAIN; i <= AdapterHolder.WORK; i++) {
             AdapterHolder adapterHolder = mAH.get(i);
@@ -1008,6 +1001,13 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
         if (mNavBarScrimHeight > 0) {
             canvas.drawRect(0, getHeight() - mNavBarScrimHeight, getWidth(), getHeight(),
                     mNavBarScrimPaint);
+        }
+    }
+
+    protected void setScrollbarVisibility(boolean visible) {
+        AllAppsRecyclerView rv = getActiveRecyclerView();
+        if (rv != null && rv.getScrollbar() != null) {
+            rv.getScrollbar().setVisibility(visible ? VISIBLE : GONE);
         }
     }
 

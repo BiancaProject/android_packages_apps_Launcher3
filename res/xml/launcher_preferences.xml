@@ -150,7 +150,7 @@
             android:key="pref_developer_options"
             android:persistent="false"
             android:title="@string/developer_options_title"
-            android:fragment="com.android.launcher3.settings.DeveloperOptionsFragment"/>
+            android:fragment="com.android.launcher3.uioverrides.flags.DeveloperOptionsFragment"/>
 
     </androidx.preference.PreferenceCategory>
 
